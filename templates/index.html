@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-image: url("https://img.freepik.com/free-photo/detail-rice-plant-sunset-valencia-with-plantation-out-focus-rice-grains-plant-seed_181624-25838.jpg");
+            background-position: top;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #838a84;
+            padding: 10px 20px;
+        }
+
+        .navbar .logo-container {
+            width: 80px;
+            height: 50px;
+            border-radius: 50px / 30px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #105517;
+        }
+
+        .navbar .logo {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: invert(31%) sepia(67%) saturate(478%) hue-rotate(56deg) brightness(91%) contrast(80%);
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 10px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .navbar ul li a:hover {
+            color: #FFD700;
+        }
+
+        .navbar .nav-right {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar .user-profile {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-color: white;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFjBkzDkeSw0mUGS8fcT3W2w8d1vjpZ9V8GKcB0t_th4B3mXh0iIY_AB-opz9lf9iquLs&usqp=CAU');
+            background-size: cover;
+            background-position: center;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .login-box {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        .login-box input {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .login-box button {
+            background: #838a84;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            margin-top: 50px;
+            gap: 20px;
+        }
+
+        .box, .weather-display, .plant-upload, .cattle-upload {
+            width: 48%;
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-sizing: border-box;
+            color: rgb(0, 0, 0);
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out; /* Smooth transition for background image */
+        }
+
+        .weather-display h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #838a84;
+        }
+
+        .weather-display .logo {
+            width: 125px;
+            height: 125px;
+            border-radius: 75px;
+            object-fit: cover;
+            margin-bottom: 0;
+        }
+
+        .weather-display p {
+            text-align: right;
+            margin: 0;
+        }
+
+        .box h2 {
+            margin: 0;
+            text-align: center;
+        }
+
+        .box .tips {
+            text-align: left;
+        }
+
+        .fade {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .fade-in {
+            opacity: 1;
+        }
+
+        .navbar .user-profile:hover + .login-box {
+            display: block;
+        }
+
+        .navbar .login-box {
+            display: none;
+        }
+
+        /* Set background-image to none for agriBox */
+        #agriBox {
+            background-image: none;
+        }
+
+        /* Plant Upload Styles */
+        .plant-upload input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .plant-upload h2 {
+            text-align: center;
+        }
+
+        /* Cattle Upload Styles */
+        .cattle-upload input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .cattle-upload h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo-container">
+            <img class="logo" src="https://graphicsfamily.com/wp-content/uploads/edd/2021/07/Agriculture-Logo-Design-Free-PSD-Download-scaled.jpg" alt="Agriculture Logo">
+        </a>
+        <div class="nav-right">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Communities</a></li>
+                <li><a href="#">Connection to Doctor</a></li>
+            </ul>
+            <div class="user-profile" id="userProfile"></div>
+            <div class="login-box" id="loginBox">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <button type="button">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="weather-display" id="weatherDisplay">
+            <h2>Weather Content</h2>
+            <div style="display: flex; justify-content: space-around; align-items: center; ">
+                <img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGyy-orcLAm6YhSW76zAlZNcR_2Lne5s7JCw&sthe" alt="Weather Logo">
+                <h4 id="weather-data">Current temperature in your area:</h4>
+            </div>
+        </div>
+        <div class="box" id="agriBox">
+            <h2>Agricultural Content</h2>
+            <div class="tips fade" id="tips"></div>
+        </div>
+    </div>
+
+    <!-- New Container for Plant Upload -->
+    <div class="container">
+        <div class="plant-upload">
+            <h2>Plant</h2>
+            <label for="plantName">Plant Name:</label>
+            <select id="plantName" name="plantName">
+                <option>Potato</option>
+                <option>Tomato</option>
+                <option>Brinjal</option>
+            </select><br><br>
+            
+            <label for="plantPhoto">Upload Plant Photo:</label>
+            <input type="file" id="plantPhoto" name="plantPhoto" accept="image/*">
+            
+            <button type="submit" id="predict_plant">Upload</button>
+            <p id="result">Abc</p>
+        </div>
+
+        <!-- New Container for Cattle Upload -->
+        <div class="cattle-upload">
+            <h2>Cattle</h2>
+            <label for="cattleName">Cattle Name:</label>
+            <select id="cattleName" name="cattleName">
+                <option>Cow</option>
+                <option>Goat</option>
+                <option>Chicken</option>
+            </select><br><br>
+            
+            <label for="cattlePhoto">Upload Cattle Photo:</label>
+            <input type="file" id="cattlePhoto" name="cattlePhoto" accept="image/*">
+            <button type="submit">Upload</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predict_plant').addEventListener('click', async()=>{
+            const fileInput = document.getElementById('plantPhoto');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            const plant=document.getElementById('plantName').value;
+            try {
+                const response = await fetch(`http://localhost:5000/predict?plant=${plant}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
+                } else {
+                    console.error('Failed to get prediction.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        })
+        window.onload = getLocation();
+        const plantTips = [
+            {
+                name: "Rice",
+                tips: [
+                    "The rice plant can grow to over 1 m (3 ft) tall; if in deep water, it can reach a length of 5 m (16 ft).",
+                    "There can be up to 350 spikelets in a panicle, each containing male and female flower parts (anthers and ovule). A fertilised ovule develops into the edible grain or caryopsis."
+                ],
+            },
+            {
+                name: "Wheat",
+                tips: [
+                    "Wheat is a grass widely cultivated for its seed, a cereal grain that is a staple food around the world.",
+                    "Globally, it is the leading source of vegetable proteins in human food, having a protein content of about 13%, which is relatively high compared to other major cereals."
+                ],
+            },
+            {
+                name: "Millet",
+                tips: [
+                    "Millets are small-grained, annual, warm-weather cereals belonging to the grass family.",
+                    "They are highly tolerant of drought and other extreme weather conditions and have a similar nutrient content to other major cereals."
+                ],
+            },
+            {
+                name: "Maize",
+                tips: [
+                    "Maize or Indian corn (called corn in some countries) is Zea mays, a member of the grass family Poaceae.",
+                    "Cornmeal is used to make porridge-like dishes in cuisines across the world, including grits in the USA, polenta in Italy, obusuma in Kenya and ugali across East Africa."
+                ],
+            }
+        ];
+
+
+
+        let index = 0;
+        const tipsElement = document.getElementById("tips");
+        const agriBox = document.getElementById("agriBox");
+
+        function showPlantTips() {
+            const currentTip = plantTips[index];
+            tipsElement.innerHTML = `
+                <h3>${currentTip.name} Tips:</h3>
+                <ul>
+                    ${currentTip.tips.map(tip => `<li>${tip}</li>`).join('')}
+                </ul>
+            `;
+
+            // Set background-image with transition
+            agriBox.style.backgroundImage = `url('${currentTip.bgImage || ''}')`;
+
+            tipsElement.classList.remove("fade-in");
+            setTimeout(() => {
+                tipsElement.classList.add("fade-in");
+            }, 100);
+        }
+
+        setInterval(() => {
+            index = (index + 1) % plantTips.length;
+            showPlantTips();
+        }, 5000);
+
+        window.onload = showPlantTips;
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          showPosition,
+          null,
+          {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+          });
+      } else {
+        document.getElementById('loc').innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    async function showPosition(position) {
+      const query = `latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`
+      try {
+        const response = await fetch(`/getloc?${query}`);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch Location');
+        }
+
+        let res = await response.json();
+        console.log(res);
+
+        document.getElementById('weather-data').innerText += " "+res.current.temp_c+"°C";
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    </script>
+</body>
+</html>

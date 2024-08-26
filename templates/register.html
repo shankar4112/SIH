@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://wallpaperaccess.com/full/1598226.jpg');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .next-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-btn:hover {
+            background-color: #45a049;
+        }
+
+        .register-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon img {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        /* Placeholder styles */
+        input::placeholder {
+            color: #999;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form action="#" method="POST" class="register-form">
+            <label for="language">Select Language:</label>
+            <select id="language" name="language" required>
+                <option value="tamil">தமிழ் (Tamil)</option>
+                <option value="english">English</option>
+            </select>
+            
+            <label for="name">Name:</label>
+            <div class="input-icon">
+                <img src="https://img.icons8.com/ios-filled/50/4CAF50/name.png" alt="Name Icon">
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+
+
+
+            <label for="email">Email:</label>
+            <div class="input-icon">
+                <img src="https://img.icons8.com/ios-filled/50/4CAF50/email.png" alt="Email Icon">
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-icon">
+                <img src="https://img.icons8.com/ios-filled/50/4CAF50/name.png" alt="Name Icon">
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <label for="mobile">Mobile Number:</label>
+            <div class="input-icon">
+                <img src="https://img.icons8.com/ios-filled/50/4CAF50/phone.png" alt="Phone Icon">
+                <input type="tel" id="mobile" name="mobile" placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+            </div>
+
+            <button type="submit" class="next-btn">Next</button>
+        </form>
+    </div>
+</body>
+</html>
